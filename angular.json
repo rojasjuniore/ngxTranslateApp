@@ -51,6 +51,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -104,6 +105,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-translate-app"
+    }
+  },
+  "defaultProject": "angular-translate-app",
+  "cli": {
+    "analytics": "ba5752cb-ebf1-4245-be3d-7c566aaca2b3"
+  }
 }

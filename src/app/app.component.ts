@@ -1,32 +1,75 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <nav class="navbar navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand">
+      {{'Sitetitle' | translate }}
+    </a>
+    <span class="form-inline">
+      <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()" [value]="language"
+          [selected]="language === translate.currentLang">
+          {{ language }}
+        </option>
+      </select>
+    </span>
+  </div>
+</nav>
+
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label>{{'Name' | translate}}</label>
+      <input type="text" class="form-control">
+      <small class="text-danger">{{'NameError' | translate}}</small>
     </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
+
+    <div class="form-group">
+      <label>{{'Email' | translate}}</label>
+      <input type="email" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{'PhoneNo' | translate}}</label>
+      <input type="tel" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{'Password' | translate}}</label>
+      <input type="password" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{'Bio' | translate}}</label>
+      <textarea rows="3" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input">
+      <label class="form-check-label">{{'TermsConditions' | translate}}</label>
+    </div>
+    <button type="submit" class="btn btn-block btn-danger">{{'Submit' | translate}}</button>
+  </form>
+</div>
     
   `,
   styles: []
 })
 export class AppComponent {
   title = 'angular-translate-app';
+
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('en');
+  }
+
+
+  switchLang(lang: string) {
+    console.log('lang', lang)
+    this.translate.use(lang);
+  }
 }
